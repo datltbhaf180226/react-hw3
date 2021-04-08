@@ -71,7 +71,7 @@ export function Product() {
       </div>
 
       <div>
-        <button type="submit">Login</button>
+        <button type="submit">Create</button>
       </div>
       <div className="data-collect">{handleData(data)}</div>
     </form>
