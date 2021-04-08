@@ -7,6 +7,7 @@ export function Register() {
     handleSubmit,
     watch,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm();
 
@@ -49,7 +50,10 @@ export function Register() {
         <div className="login-input">
           <input
             type="password"
-            {...register("password", { required: true, minLength: 6 })}
+            {...register("password", {
+              required: "Password is required",
+              minLength: 6,
+            })}
           />
           {errors.password && <div>This field is required</div>}
         </div>
@@ -59,9 +63,21 @@ export function Register() {
         <div className="login-input">
           <input
             type="password"
-            {...register("confirmPassword", { required: true, minLength: 6 })}
+            {...register("confirmPassword", {
+              required: "Password confirmation is required",
+              minLength: 6,
+              validate: {
+                matchesPreviousPassword: (value) => {
+                  const { password } = getValues();
+                  return password === value || "Passwords is not match!";
+                },
+              },
+            })}
           />
-          {errors.confirmPassword && <div>This field is required</div>}
+          {/* {errors.confirmPassword && <div>This field is required</div>} */}
+          {errors.confirmPassword && (
+            <p style={{ color: "red" }}>{errors.confirmPassword.message}</p>
+          )}
         </div>
       </div>
       <div>
